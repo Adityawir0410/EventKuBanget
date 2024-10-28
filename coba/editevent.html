@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tambah Event</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="tambahevent.css">
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="container">
+            <a class="navbar-brand" href="#">Eventku</a>
+            <button class="navbar-toggler" type="button" onclick="toggleMenu()">
+                <i class="fas fa-bars"></i>
+            </button>
+            <ul class="navbar-nav" id="navbarNav">
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Kelola Event</a>
+                </li>
+                <li class="nav-item">
+                    <div class="user-box">
+                        <i class="fa-solid fa-user user-icon"></i>
+                        <span>EO</span>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Form Content -->
+<div class="content-container">
+    <h1 class="kelola-title">Edit Event</h1>
+    <div class="form-container">
+        <div class="left-section">
+            <div class="upload-section">
+                <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='50' height='50' viewBox='0 0 24 24'%3E%3Cpath fill='%23666' d='M19.35 10.04A7.49 7.49 0 0 0 12 4C9.11 4 6.6 5.64 5.35 8.04A5.994 5.994 0 0 0 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96zM14 13v4h-4v-4H7l5-5 5 5h-3z'/%3E%3C/svg%3E"
+                     alt="Upload" class="upload-icon">
+                <p class="upload-text">Letakkan poster event Anda di sini atau</p>
+                <input type="file" class="form-control" id="eventImage" accept="image/*" required>
+                <input type="file" class="form-control" id="eventImage" accept="image/*" required>
+            </div>
+            <div class="info-row">
+                <div class="info-text">Supported format: PNG, JPG, PDF</div>
+                <div class="info-text">Ukuran maksimum: 25 MB</div>
+            </div>
+        </div>
+
+        <div class="right-section">
+            <form id="eventForm" onsubmit="updateEvent(event)">
+                <div class="form-group-horizontal">
+                    <label for="kategori">Kategori</label>
+                    <input type="text" id="kategori" placeholder="Lorem ipsum">
+                </div>
+
+                <div class="form-group-horizontal">
+                    <label for="nama-event">Nama Event</label>
+                    <input type="text" id="nama-event" placeholder="Lorem ipsum dolor sit amet consectetur. Blandit">
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group-horizontal">
+                        <label for="tanggal">Tanggal</label>
+                        <input type="date" id="tanggal" required>
+                    </div>
+                    <div class="form-group-horizontal">
+                        <label for="waktu">Pukul</label>
+                        <input type="time" id="waktu" required>
+                    </div>
+                </div>
+
+                <div class="form-group-horizontal">
+                    <label for="deskripsi">Deskripsi</label>
+                    <textarea id="deskripsi" placeholder="Deskripsi lengkap event" required></textarea>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group-horizontal">
+                        <label for="harga">Harga Sewa</label>
+                        <input type="text" id="harga" placeholder="Rp50.000" required>
+                    </div>
+                    <div class="form-group-horizontal">
+                        <label for="booth">Jumlah Booth</label>
+                        <input type="number" id="booth" placeholder="35" required>
+                    </div>
+                </div>
+
+                <div class="form-group-horizontal">
+                    <label for="lokasi">Lokasi</label>
+                    <input type="text" id="lokasi" placeholder="Lokasi event" required>
+                </div>
+
+                <div class="button-group">
+                    <button type="button" class="btn btn-cancel" onclick="window.location.href='index.html'">Batal</button>
+                    <button type="submit" class="btn btn-submit">Simpan</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<script src="eventdetail.js"></script>
+<script>src="scripts.js"</script>
+</body>
+</html>
