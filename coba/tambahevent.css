@@ -481,3 +481,88 @@ textarea {
     padding-top: 60px;
 }
 
+.popup {
+    display: none; /* Sembunyikan pop-up secara default */
+    position: fixed; /* Tetap di tempat */
+    z-index: 1000; /* Di atas elemen lain */
+    left: 0;
+    top: 0;
+    width: 100%; /* Lebar penuh */
+    height: 100%; /* Tinggi penuh */
+    background-color: rgba(0, 0, 0, 0.5); /* Latar belakang gelap */
+}
+
+.popup-content {
+    background-color: #FFF9EB; /* Latar belakang putih */
+    margin: 15% auto; /* Posisi tengah */
+    padding: 20px; /* Padding */
+    border: 1px solid #888; /* Border */
+    width: 300px; /* Lebar pop-up */
+    border-radius: 5px; /* Sudut membulat */
+    text-align: center; /* Teks rata tengah */
+}
+
+.close {
+    color: #aaa; /* Warna close button */
+    float: right; /* Posisi kanan */
+    font-size: 28px; /* Ukuran font */
+    font-weight: bold; /* Tebal */
+}
+
+.close:hover,
+.close:focus {
+    color: black; /* Warna saat hover */
+    text-decoration: none; /* Tanpa garis bawah */
+    cursor: pointer; /* Kursor pointer */
+}
+
+.image-preview {
+    margin-top: 10px;
+    text-align: center;
+}
+
+.image-preview img {
+    border: 1px solid #ddd;
+    padding: 5px;
+    border-radius: 8px;
+}
+
+.upload-section {
+    border: 2px dashed #ccc;
+    padding: 20px;
+    text-align: center;
+    position: relative;
+    min-height: 200px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+}
+
+.upload-section.drag-over {
+    border-color: #4A90E2;
+    background-color: rgba(74, 144, 226, 0.1);
+}
+
+.image-preview {
+    margin-top: 20px;
+    max-width: 100%;
+    overflow: hidden;
+}
+
+#imagePreview {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.upload-icon {
+    margin-bottom: 10px;
+}
+
+.upload-text {
+    margin-bottom: 15px;
+    color: #666;
+}

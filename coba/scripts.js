@@ -1,3 +1,18 @@
+// Function to handle image preview
+document.getElementById('eventImage').addEventListener('change', function(e) {
+    const file = e.target.files[0];
+    const imagePreview = document.getElementById('imagePreview');
+    
+    if (file) {
+        const reader = new FileReader();
+        reader.onload = function(event) {
+            imagePreview.src = event.target.result;
+            imagePreview.style.display = 'block';
+        };
+        reader.readAsDataURL(file);
+    }
+});
+
 // Load events from localStorage or use the initial array
 let events = JSON.parse(localStorage.getItem('events')) || [
     {
@@ -11,36 +26,15 @@ let events = JSON.parse(localStorage.getItem('events')) || [
         description: "Harmoni Kreatif Nusantara merupakan event konser musik yang digabungkan dengan pameran UMKM untuk memperluas jangkauan usaha lokal.",
         image: "Images/eventSatu.png"
     },
-    {
-        title: "Nada dan Usaha",
-        date: "Minggu, 23 Juni 2025",
-        timeStart: "09:00",
-        timeEnd: "14:00",
-        location: "Bandung",
-        price: 400000,
-        boothCount: 8,
-        description: "Nada dan Usaha adalah festival musik dan bazaar kreatif yang menghadirkan konser serta produk UMKM untuk menjangkau lebih banyak konsumen.",
-        image: "Images/eventDua.png"
-    },
-    {
-        title: "Suara UMKM Berdaya",
-        date: "Sabtu, 30 Juni 2025",
-        timeStart: "08:00",
-        timeEnd: "12:00",
-        location: "Yogyakarta",
-        price: 300000,
-        boothCount: 5,
-        description: "Suara UMKM Berdaya adalah konser amal dan bazaar produk lokal yang menggabungkan bisnis dan aksi sosial dalam satu acara.",
-        image: "Images/eventTiga.png"
-    }
+    // ... other initial events ...
 ];
 
-let deletedEvents = JSON.parse(localStorage.getItem('deletedEvents')) || [];
-
-// Fungsi untuk memuat event ke halaman
+// Function to load events to page
 function loadEvents() {
     const eventContainer = document.getElementById('eventContainer');
-    eventContainer.innerHTML = ''; // Bersihkan konten sebelumnya
+    if (!eventContainer) return; // Guard clause if element doesn't exist
+    
+    eventContainer.innerHTML = ''; // Clear previous content
 
     events.forEach((event, index) => {
         const card = document.createElement('div');
@@ -60,47 +54,62 @@ function loadEvents() {
     });
 }
 
-// Fungsi untuk melihat detail event
+// Function to add new event
+function addNewEvent(event) {
+    event.preventDefault();
+
+    const imageFile = document.getElementById('eventImage').files[0];
+    const imagePreview = document.getElementById('imagePreview');
+    
+    // Create new event object
+    const newEvent = {
+        title: document.getElementById('eventTitle').value,
+        date: document.getElementById('eventDate').value,
+        description: document.getElementById('eventDescription').value,
+        price: parseInt(document.getElementById('eventPrice').value),
+        boothCount: parseInt(document.getElementById('eventBoothCount').value),
+        location: document.getElementById('eventLocation').value,
+        image: imagePreview.src // Use the preview image data URL
+    };
+
+    // Add to events array
+    events.push(newEvent);
+    
+    // Save to localStorage
+    localStorage.setItem('events', JSON.stringify(events));
+
+    // Show success popup
+    showPopup();
+
+    // Reset form
+    document.getElementById('eventForm').reset();
+    imagePreview.style.display = 'none';
+}
+
+// Function to show popup
+function showPopup() {
+    const popup = document.getElementById('successPopup');
+    if (popup) {
+        popup.style.display = 'block';
+    }
+}
+
+// Function to close popup
+function closePopup() {
+    const popup = document.getElementById('successPopup');
+    if (popup) {
+        popup.style.display = 'none';
+    }
+    // Redirect after closing popup
+    window.location.href = 'index.html';
+}
+
+// Function to view event detail
 function viewEventDetail(index) {
     localStorage.setItem('selectedEvent', JSON.stringify(events[index]));
-    localStorage.setItem('selectedEventIndex', index); // Simpan indeks untuk penghapusan
+    localStorage.setItem('selectedEventIndex', index);
     window.location.href = 'EventDetail.html';
 }
 
-// Fungsi untuk menambah event baru
-function addNewEvent() {
-    const title = document.getElementById('eventTitle').value;
-    const date = document.getElementById('eventDate').value;
-    const timeStart = document.getElementById('eventTimeStart').value;
-    const timeEnd = document.getElementById('eventTimeEnd').value;
-    const location = document.getElementById('eventLocation').value;
-    const price = document.getElementById('eventPrice').value;
-    const boothCount = document.getElementById('eventBoothCount').value;
-    const description = document.getElementById('eventDescription').value;
-    const image = URL.createObjectURL(document.getElementById('eventImage').files[0]); // Menggunakan file input
-
-    const newEvent = {
-        title,
-        date,
-        timeStart,
-        timeEnd,
-        location,
-        price: parseInt(price), // Konversi ke angka
-        boothCount: parseInt(boothCount), // Konversi ke angka
-        description,
-        image
-    };
-
-    events.push(newEvent);
-    localStorage.setItem('events', JSON.stringify(events)); // Simpan event baru di localStorage
-
-    // Reset form dan tutup modal
-    document.getElementById('eventForm').reset();
-    const eventModal = bootstrap.Modal.getInstance(document.getElementById('eventModal'));
-    eventModal.hide();
-
-    loadEvents(); // Muat ulang event
-}
-
-// Muat event saat halaman dimuat
-window.onload = loadEvents;
+// Initialize events when page loads
+window.addEventListener('load', loadEvents);
